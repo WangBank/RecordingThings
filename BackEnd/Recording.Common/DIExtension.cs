@@ -28,7 +28,7 @@ namespace Recording.Common
                         if (typeof(ITransientDependency).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                         {
 
-                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ITransientDependency"));
+                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ITransientDependency") && !p.FullName.Contains("IDisposable"));
                             foreach (var interfaceType in interfaceTypes)
                             {
                                 services.AddTransient(interfaceType, type);
@@ -41,7 +41,7 @@ namespace Recording.Common
                         if (typeof(ISingletonDependency).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                         {
                           
-                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ISingletonDependency"));
+                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("ISingletonDependency") && !p.FullName.Contains("IDisposable"));
                             foreach (var interfaceType in interfaceTypes)
                             {
                                 services.AddSingleton(interfaceType, type);
@@ -54,7 +54,7 @@ namespace Recording.Common
                         if (typeof(IScopedDependency).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
                         {
                        
-                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("IScopedDependency"));
+                            var interfaceTypes = type.GetInterfaces().Where(p => !p.FullName.Contains("IScopedDependency") && !p.FullName.Contains("IDisposable"));
                             foreach (var interfaceType in interfaceTypes)
                             {
                                 services.AddScoped(interfaceType, type);

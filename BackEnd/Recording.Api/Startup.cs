@@ -7,8 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Recording.Application.IServices;
+using Recording.Application.Services;
 using Recording.Common;
 using Recording.Database;
+using Recording.Models.SettingModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +33,12 @@ namespace Recording.Api
         {
 
             services.AddControllers();
+            services.Configure<AppSettings>(Configuration);
             services.AddDbContext<Recording_DbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
-            services.ServiceRegister(Assembly.GetExecutingAssembly());
+            services.AddScoped<BaseService>();
+            services.ServiceRegister(Assembly.GetAssembly(typeof(IBaseServiceForDI)));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recording.Api", Version = "v1" });

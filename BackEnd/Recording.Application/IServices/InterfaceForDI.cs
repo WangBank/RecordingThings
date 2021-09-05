@@ -17,4 +17,9 @@ namespace Recording.Application.IServices
     public interface IScopedDependency
     {
     }
+
+    public interface IBaseServiceForDI
+    {
+
+    }
 }
